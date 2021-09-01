@@ -1,9 +1,11 @@
 package com.example.news;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -19,9 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements CategoryRVAdapter.CategorClickInterface {
 
-    //b3c590d6fbd54abbbf479769da1a185a
-
-    private RecyclerView newsRV,categoryRV;
     private ProgressBar loadingPB;
     private ArrayList<Articles>articlesArrayList;
     private ArrayList<CategoryRVModal>categoryRVModalArrayList;
@@ -29,17 +28,18 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
     private NewsRVAdapter newsRVAdapter;
 
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        newsRV = findViewById(R.id.idRVNews);
-        categoryRV = findViewById(R.id.idRVCategories);
+        RecyclerView newsRV = findViewById(R.id.idRVNews);
+        RecyclerView categoryRV = findViewById(R.id.idRVCategories);
         loadingPB = findViewById(R.id.idPBLoading);
         articlesArrayList = new ArrayList<>();
         categoryRVModalArrayList = new ArrayList<>();
         newsRVAdapter = new NewsRVAdapter(articlesArrayList,this);
-        categoryRVAdapter = new CategoryRVAdapter(categoryRVModalArrayList,this,this::onCategoryClick);
+        categoryRVAdapter = new CategoryRVAdapter(categoryRVModalArrayList,this, this);
         newsRV.setLayoutManager(new LinearLayoutManager(this));
         newsRV.setAdapter(newsRVAdapter);
         categoryRV.setAdapter(categoryRVAdapter);
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
 
     }
 
+         @SuppressLint("NotifyDataSetChanged")
          private void getCategories(){
              categoryRVModalArrayList.add(new CategoryRVModal("All","https://images.unsplash.com/photo-1560177112-fbfd5fde9566?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fG5ld3NwYXBlcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"));
              categoryRVModalArrayList.add(new CategoryRVModal("Technology","https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dGVjaG5vbG9neXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"));
@@ -83,20 +84,26 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
              }
 
              call.enqueue(new Callback<NewsModel>() {
+                 @SuppressLint("NotifyDataSetChanged")
                  @Override
-                 public void onResponse(Call<NewsModel> call, Response<NewsModel> response) {
+                 public void onResponse(@NonNull Call<NewsModel> call, @NonNull Response<NewsModel> response) {
                      NewsModel newsModel = response.body();
                      loadingPB.setVisibility(View.GONE);
-                     ArrayList<Articles> articles = newsModel.getArticles();
-                     for (int i=0 ; i<articles.size(); i++){
-                         articlesArrayList.add(new Articles(articles.get(i).getTitle(),articles.get(i).getDescription(),articles.get(i).getUrlToImage(),articles.get(i).getUrl(),articles.get(i).getContent()));
+                     ArrayList<Articles> articles = null;
+                     if (newsModel != null) {
+                         articles = newsModel.getArticles();
+                     }
+                     if (articles != null) {
+                         for (int i=0 ; i<articles.size(); i++){
+                             articlesArrayList.add(new Articles(articles.get(i).getTitle(),articles.get(i).getDescription(),articles.get(i).getUrlToImage(),articles.get(i).getUrl(),articles.get(i).getContent()));
 
+                         }
                      }
                      newsRVAdapter.notifyDataSetChanged();
                  }
 
                  @Override
-                 public void onFailure(Call<NewsModel> call, Throwable t) {
+                 public void onFailure(@NonNull Call<NewsModel> call, @NonNull Throwable t) {
                      Toast.makeText(MainActivity.this,"Fail to get news",Toast.LENGTH_SHORT).show();
                  }
              });
