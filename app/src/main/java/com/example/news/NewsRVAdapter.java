@@ -42,7 +42,7 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context,NewsDeatilActivity.class);
+                Intent i = new Intent(context, NewsDetailActivity.class);
                 i.putExtra("title",articles.getTitle());
                 i.putExtra("content",articles.getContent());
                 i.putExtra("desc",articles.getDescription());
@@ -70,4 +70,5 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder
 
         }
     }
+
 }

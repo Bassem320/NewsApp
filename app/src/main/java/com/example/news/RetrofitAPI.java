@@ -9,9 +9,6 @@ public interface RetrofitAPI {
     @GET
     Call<NewsModel> getAllNews(@Url String url);
 
-    @GET
-    Call<NewsModel>getNewsByCategory(@Url String url);
-
 
 
 }

@@ -13,11 +13,11 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/idIVNews"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:id="@+id/idIVNews"
             android:scaleType="centerCrop"
-            />
+            android:contentDescription="@string/todo" />
 
         <TextView
             android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:id="@+id/idTVNewsHeading"
             android:layout_below="@id/idIVNews"
             android:textColor="@color/yellow"
-            android:text="New Heading"
+            android:text="@string/new_heading"
             android:textStyle="bold"
             android:textSize="18sp"
             android:padding="3dp"
@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sub heading"
+            android:text="@string/sub_heading"
             android:layout_below="@id/idTVNewsHeading"
             android:textColor="@color/white"
             android:maxLines="3"

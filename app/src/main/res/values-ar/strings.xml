@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">الأخبار</string>
+    <string name="news_app">الأخبار</string>
+    <string name="read_full_news">اقرأ الخبر كاملا</string>
+    <string name="title">عنوان المقال</string>
+    <string name="sub_description">وصف مختصر</string>
+    <string name="content">المحتوى</string>
+    <string name="todo">صورة</string>
+    <string name="news_app_splash_screen">الأخبار</string>
+    <string name="new_heading">العنوان</string>
+    <string name="sub_heading">عنوان مختصر</string>
+</resources>

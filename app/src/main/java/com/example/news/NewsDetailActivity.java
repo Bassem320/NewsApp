@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-public class NewsDeatilActivity extends AppCompatActivity {
+public class NewsDetailActivity extends AppCompatActivity {
             String title,desc,content,imageURL,url;
             private TextView titleTV,subDescTV,contentTV;
             private ImageView newsTV;
